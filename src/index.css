@@ -21,3 +21,15 @@ body {
 * {
   box-sizing: border-box;
 }
+
+@keyframes loading {
+  0% {
+    background-color: #f6f6f6;
+  }
+  50% {
+    background-color: #dddddd;
+  }
+  100% {
+    background-color: #f6f6f6;
+  }
+}
