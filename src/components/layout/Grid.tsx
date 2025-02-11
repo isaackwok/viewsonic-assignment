@@ -9,6 +9,8 @@ type GridProps = {
 export const Grid = styled.div<GridProps>`
   display: grid;
   width: 100%;
+  height: 100%;
+  grid-auto-rows: 1fr;
   ${({ $gap, $cols, theme }) => [
     `gap: ${
       typeof $gap === "number"
