@@ -1,14 +1,11 @@
+import { useClassroom } from "../useClassroom";
 import { JoinClassPanel } from "./JoinClassPanel";
-
-const classId = "X58E9647";
-const classTitle = "302 Science";
+import { JoinClassPanelLoadingSkeleton } from "./JoinClassPanel.loading";
 
 export function JoinClassPanelContainer() {
-  return (
-    <JoinClassPanel
-      onBack={() => {}}
-      classId={classId}
-      classTitle={classTitle}
-    />
-  );
+  const { classroom, isLoading, isError } = useClassroom("X58E9647");
+  if (isError) return <div>Error</div>;
+  if (isLoading) return <JoinClassPanelLoadingSkeleton />;
+  if (!classroom) return null;
+  return <JoinClassPanel onBack={() => {}} />;
 }

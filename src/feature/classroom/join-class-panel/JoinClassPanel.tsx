@@ -1,19 +1,10 @@
 import QRCode from "react-qr-code";
-import { Window } from "../../../components/Window";
-import styled from "styled-components";
 import { MdChevronLeft } from "react-icons/md";
 import { CopyTextButton } from "./CopyTextButton";
-
-const StyledWindow = styled(Window)`
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 24px;
-  padding-bottom: 24px;
-  gap: 16px;
-`;
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { StyledWindow } from "./shared";
+import styled from "styled-components";
 
 const BackButton = styled.button`
   display: flex;
@@ -59,20 +50,23 @@ const CopyTextButtonsWrapper = styled.div`
 
 type JoinClassPanelProps = {
   onBack: () => void;
-  classTitle: string;
-  classId: string;
 };
 
 export function JoinClassPanel({ onBack }: JoinClassPanelProps) {
+  const classroom = useSelector((state: RootState) => state.classroom.info);
+  if (!classroom) return null;
   return (
     <StyledWindow id="join-class-panel" backgroundColor="#F6F6F6">
       <BackButton onClick={onBack}>
         <MdChevronLeft size={24} />
         Back to Class List
       </BackButton>
-      <Title>Join 302 Science</Title>
+      <Title>Join {classroom.name}</Title>
       <CopyTextButtonsWrapper>
-        <CopyTextButton displayText="ID: X58E9647" copyText="X58E9647" />
+        <CopyTextButton
+          displayText={`ID: ${classroom.classroomId}`}
+          copyText={classroom.classroomId}
+        />
         <CopyTextButton
           displayText="Link"
           copyText="https://www.classswift.viewsonic.io/"

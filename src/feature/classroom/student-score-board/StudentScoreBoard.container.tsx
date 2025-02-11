@@ -2,14 +2,8 @@ import { StudentScoreBoard } from "./StudentScoreBoard";
 import { StudentScoreBoardLoadingSkeleton } from "./StudentScoreBoard.loading";
 import { useClassroom } from "../useClassroom";
 
-type StudentScoreBoardContainerProps = {
-  classroomId: string;
-};
-
-export function StudentScoreBoardContainer({
-  classroomId,
-}: StudentScoreBoardContainerProps) {
-  const { classroom, isLoading, isError } = useClassroom(classroomId);
+export function StudentScoreBoardContainer() {
+  const { classroom, isLoading, isError } = useClassroom("X58E9647");
 
   if (isError) return <div>Error</div>;
   if (isLoading) return <StudentScoreBoardLoadingSkeleton />;

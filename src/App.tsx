@@ -14,7 +14,7 @@ function App() {
       style={{ height: "100%" }}
     >
       <JoinClassPanelContainer />
-      <StudentScoreBoardContainer classroomId="123" />
+      <StudentScoreBoardContainer />
     </Grid>
   );
 }

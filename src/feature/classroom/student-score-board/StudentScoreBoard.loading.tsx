@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { ClassTitle, Grid, StyledTabs, StyledWindow } from "./shared";
+import { LoadingSkeleton } from "../../../components/LoadingSkeleton";
 
-const LoadingSkeleton = styled.div`
-  background: white;
+const StyledLoadingSkeleton = styled(LoadingSkeleton)`
   height: 120px;
-  border-radius: ${({ theme }) => theme.radius.base}px;
-  animation: loading 2s infinite ease-in-out;
 `;
 
 export function StudentScoreBoardLoadingSkeleton() {
@@ -19,7 +17,7 @@ export function StudentScoreBoardLoadingSkeleton() {
             content: (
               <Grid>
                 {Array.from({ length: 7 }).map((_, idx) => (
-                  <LoadingSkeleton key={idx} />
+                  <StyledLoadingSkeleton key={idx} />
                 ))}
               </Grid>
             ),

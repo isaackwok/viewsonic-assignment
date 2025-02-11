@@ -2,6 +2,7 @@ import { Classroom } from "../types/classroom";
 
 const mockClassroomInfo = {
   capacity: 30,
+  classroomId: "X58E9647",
   name: "302 Science",
   students: {
     "1": {
@@ -146,8 +147,8 @@ export const getClassroomInfoById = async (
 ): Promise<Classroom> => {
   await new Promise((resolve) => setTimeout(resolve, 1500));
   const data = {
-    classroomId,
     ...mockClassroomInfo,
+    classroomId,
   };
   return data;
 };
