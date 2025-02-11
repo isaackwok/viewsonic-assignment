@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ClassTitle, Grid, GridWrapper, StyledWindow } from "./shared";
+import { ClassTitle, Grid, StyledTabs, StyledWindow } from "./shared";
 
 const LoadingSkeleton = styled.div`
   background: white;
@@ -12,13 +12,24 @@ export function StudentScoreBoardLoadingSkeleton() {
   return (
     <StyledWindow id="student-score-board">
       <ClassTitle>Loading...</ClassTitle>
-      <GridWrapper>
-        <Grid>
-          {Array.from({ length: 7 }).map((_, idx) => (
-            <LoadingSkeleton key={idx} />
-          ))}
-        </Grid>
-      </GridWrapper>
+      <StyledTabs
+        tabs={{
+          studentList: {
+            title: "Student List",
+            content: () => (
+              <Grid>
+                {Array.from({ length: 7 }).map((_, idx) => (
+                  <LoadingSkeleton key={idx} />
+                ))}
+              </Grid>
+            ),
+          },
+          group: {
+            title: "Group",
+            content: () => "Loading...",
+          },
+        }}
+      />
     </StyledWindow>
   );
 }

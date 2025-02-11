@@ -1,2 +1,2 @@
-export { JoinClassPanel } from "./JoinClassPanel";
+export { JoinClassPanelContainer } from "./JoinClassPanel.container";
 export { CopyTextButton } from "./CopyTextButton";

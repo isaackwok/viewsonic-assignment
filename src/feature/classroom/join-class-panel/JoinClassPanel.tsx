@@ -8,8 +8,8 @@ const StyledWindow = styled(Window)`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
   padding-top: 24px;
   padding-bottom: 24px;
   gap: 16px;
@@ -57,10 +57,16 @@ const CopyTextButtonsWrapper = styled.div`
   gap: 24px;
 `;
 
-export function JoinClassPanel() {
+type JoinClassPanelProps = {
+  onBack: () => void;
+  classTitle: string;
+  classId: string;
+};
+
+export function JoinClassPanel({ onBack }: JoinClassPanelProps) {
   return (
     <StyledWindow id="join-class-panel" backgroundColor="#F6F6F6">
-      <BackButton>
+      <BackButton onClick={onBack}>
         <MdChevronLeft size={24} />
         Back to Class List
       </BackButton>

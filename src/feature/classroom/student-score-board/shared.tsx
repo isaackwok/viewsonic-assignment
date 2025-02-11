@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { Window } from "../../../components/Window";
+import { Tabs } from "../../../components/Tabs";
 
 export const Header = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-top: 24px;
 `;
 
 export const ClassTitle = styled.div`
@@ -17,13 +19,6 @@ export const ClassTitle = styled.div`
 export const StyledWindow = styled(Window)`
   display: flex;
   flex-direction: column;
-`;
-
-export const GridWrapper = styled.div`
-  flex-grow: 1;
-  background: white;
-  padding: 12px;
-  overflow-y: auto;
 `;
 
 export const Grid = styled.div`
@@ -39,4 +34,8 @@ export const Grid = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.desktop}px) {
     grid-template-columns: repeat(5, 1fr);
   }
+`;
+
+export const StyledTabs = styled(Tabs)`
+  flex-grow: 1;
 `;

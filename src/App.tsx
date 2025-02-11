@@ -1,5 +1,5 @@
 import { Grid } from "./components/layout/Grid";
-import { JoinClassPanel } from "./feature/classroom/join-class-panel";
+import { JoinClassPanelContainer } from "./feature/classroom/join-class-panel";
 import { StudentScoreBoardContainer } from "./feature/classroom/student-score-board";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       }}
       style={{ height: "100%" }}
     >
-      <JoinClassPanel />
+      <JoinClassPanelContainer />
       <StudentScoreBoardContainer classroomId="123" />
     </Grid>
   );
