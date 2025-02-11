@@ -10,7 +10,7 @@ const LoadingSkeleton = styled.div`
 
 export function StudentScoreBoardLoadingSkeleton() {
   return (
-    <StyledWindow>
+    <StyledWindow id="student-score-board">
       <ClassTitle>Loading...</ClassTitle>
       <GridWrapper>
         <Grid>

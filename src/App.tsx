@@ -4,7 +4,15 @@ import { StudentScoreBoardContainer } from "./feature/classroom/student-score-bo
 
 function App() {
   return (
-    <Grid $gap={12} $cols={2} style={{ height: "100%" }}>
+    <Grid
+      $gap={12}
+      $cols={{
+        mobile: 1,
+        tablet: 2,
+        desktop: 2,
+      }}
+      style={{ height: "100%" }}
+    >
       <JoinClassPanel />
       <StudentScoreBoardContainer classroomId="123" />
     </Grid>
