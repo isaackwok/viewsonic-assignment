@@ -35,9 +35,13 @@ const Title = styled.div`
 `;
 
 const StyledQRCode = styled(QRCode)`
-  height: 100%;
-  width: 100%;
   aspect-ratio: 1 / 1;
+  padding: 16px;
+  border-radius: ${({ theme }) => theme.radius.base}px;
+  background-color: white;
+  height: auto;
+  width: 100%;
+  flex-grow: 1;
 `;
 
 const Version = styled.div`
