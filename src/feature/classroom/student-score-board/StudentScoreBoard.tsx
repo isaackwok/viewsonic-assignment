@@ -1,4 +1,4 @@
-import { StudentCard } from "../../../components/StudentCard";
+import { StudentCard } from "./StudentCard";
 import { MdPerson } from "react-icons/md";
 import { StyledWindow, Header, ClassTitle, GridWrapper, Grid } from "./shared";
 
@@ -19,7 +19,7 @@ export function StudentScoreBoard({
   students,
 }: StudentScoreBoardProps) {
   return (
-    <StyledWindow>
+    <StyledWindow id="student-score-board">
       <Header>
         <ClassTitle>{name}</ClassTitle>
         <MdPerson size={20} /> {students.length}/{capacity}
