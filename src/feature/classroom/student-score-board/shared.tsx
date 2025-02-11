@@ -39,3 +39,6 @@ export const Grid = styled.div`
 export const StyledTabs = styled(Tabs)`
   flex-grow: 1;
 `;
+
+export const sortByName = (a: string, b: string) => a.localeCompare(b);
+export const sortByScore = (a: number, b: number) => b - a;

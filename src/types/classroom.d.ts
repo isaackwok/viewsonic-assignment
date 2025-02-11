@@ -4,5 +4,6 @@ export type Classroom = {
   classroomId: string;
   capacity: number;
   name: string;
-  students: Student[];
+  students: Record<string, Student>; // id: Student
+  groups: Record<string, Group>; // id: Group
 };

@@ -9,8 +9,7 @@ type UseStudentScoreProps = {
 export function useStudentScore({ id }: UseStudentScoreProps) {
   const dispatch = useDispatch();
   const score = useSelector(
-    (state: RootState) =>
-      state.classroom.info?.students.find((student) => student.id === id)?.score
+    (state: RootState) => state.classroom.info?.students[id]?.score
   );
 
   const changeScore = (score: number) => {

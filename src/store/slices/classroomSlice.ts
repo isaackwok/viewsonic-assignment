@@ -20,9 +20,19 @@ export const classroomSlice = createSlice({
       action: PayloadAction<{ id: string; score: number }>
     ) => {
       const { id, score } = action.payload;
-      const student = state.info?.students.find((student) => student.id === id);
+      const student = state.info?.students[id];
       if (student) {
         student.score = score;
+      }
+    },
+    updateGroupScore: (
+      state,
+      action: PayloadAction<{ id: string; score: number }>
+    ) => {
+      const { id, score } = action.payload;
+      const group = state.info?.groups[id];
+      if (group) {
+        group.score = score;
       }
     },
   },
@@ -36,5 +46,6 @@ export const classroomSlice = createSlice({
   },
 });
 
-export const { setClassroomInfo, updateStudentScore } = classroomSlice.actions;
+export const { setClassroomInfo, updateStudentScore, updateGroupScore } =
+  classroomSlice.actions;
 export default classroomSlice.reducer;

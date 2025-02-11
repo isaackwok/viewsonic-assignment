@@ -1,18 +1,33 @@
-import { Grid } from "./shared";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { Grid, sortByName, sortByScore } from "./shared";
 import { StudentCard } from "./StudentCard";
-import { Student } from "../../../types/student";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 type StudentListTabProps = {
-  students: Student[];
+  sortBy: "name" | "score";
 };
 
 const MemoizedStudentCard = memo(StudentCard);
 
-export function StudentListTab({ students }: StudentListTabProps) {
+export function StudentListTab({ sortBy }: StudentListTabProps) {
+  const students = useSelector(
+    (state: RootState) => state.classroom.info?.students || {}
+  );
+  const sortedStudents = useMemo(() => {
+    const studentsArray = Object.values(students);
+    return studentsArray.slice().sort((a, b) => {
+      switch (sortBy) {
+        case "name":
+          return sortByName(a.name, b.name);
+        case "score":
+          return sortByScore(a.score, b.score);
+      }
+    });
+  }, [students, sortBy]);
   return (
     <Grid>
-      {students.map((student, idx) => (
+      {sortedStudents.map((student, idx) => (
         <MemoizedStudentCard
           key={student.id}
           name={student.name}

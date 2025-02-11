@@ -6,6 +6,7 @@ type TabProps = {
 
 export const Tab = styled.button<TabProps>`
   border: none;
+  align-self: stretch;
   border-top-left-radius: ${({ theme }) => theme.radius.base}px;
   border-top-right-radius: ${({ theme }) => theme.radius.base}px;
   padding: 12px 24px;

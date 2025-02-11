@@ -40,20 +40,20 @@ type TabsProps = {
     {
       title: string;
       content: React.ReactNode;
+      actions?: ComponentProps<typeof Actions>["actions"];
     }
   >;
-  actions?: ComponentProps<typeof Actions>["actions"];
   className?: string;
 };
 
-export function Tabs({ tabs, actions, className }: TabsProps) {
+export function Tabs({ tabs, className }: TabsProps) {
   const keys = Object.keys(tabs);
   if (keys.length === 0) {
     throw new Error("Tabs must have at least one tab");
   }
   const [currentTab, setCurrentTab] = useState(keys[0]);
   const currentTabContent = tabs[currentTab].content;
-
+  const actions = tabs[currentTab].actions;
   const handleTabClick = (tabId: string) => {
     setCurrentTab(tabId);
   };
