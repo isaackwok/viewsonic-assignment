@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 import { Tab } from "./Tab";
 import styled from "styled-components";
+import { Actions } from "./Actions";
 
 const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
 `;
 
 const TabContainer = styled.div`
@@ -31,19 +39,20 @@ type TabsProps = {
     string,
     {
       title: string;
-      content: () => React.ReactNode;
+      content: React.ReactNode;
     }
   >;
+  actions?: ComponentProps<typeof Actions>["actions"];
   className?: string;
 };
 
-export function Tabs({ tabs, className }: TabsProps) {
+export function Tabs({ tabs, actions, className }: TabsProps) {
   const keys = Object.keys(tabs);
   if (keys.length === 0) {
     throw new Error("Tabs must have at least one tab");
   }
   const [currentTab, setCurrentTab] = useState(keys[0]);
-  const CurrentTabContent = tabs[currentTab].content;
+  const currentTabContent = tabs[currentTab].content;
 
   const handleTabClick = (tabId: string) => {
     setCurrentTab(tabId);
@@ -51,20 +60,21 @@ export function Tabs({ tabs, className }: TabsProps) {
 
   return (
     <Wrapper className={className}>
-      <TabContainer>
-        {keys.map((key) => (
-          <Tab
-            key={key}
-            onClick={() => handleTabClick(key)}
-            $isCurrent={currentTab === key}
-          >
-            {tabs[key].title}
-          </Tab>
-        ))}
-      </TabContainer>
-      <TabPanel>
-        <CurrentTabContent />
-      </TabPanel>
+      <Flex>
+        <TabContainer>
+          {keys.map((key) => (
+            <Tab
+              key={key}
+              onClick={() => handleTabClick(key)}
+              $isCurrent={currentTab === key}
+            >
+              {tabs[key].title}
+            </Tab>
+          ))}
+        </TabContainer>
+        {actions && <Actions actions={actions} />}
+      </Flex>
+      <TabPanel>{currentTabContent}</TabPanel>
     </Wrapper>
   );
 }

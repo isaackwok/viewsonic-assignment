@@ -16,7 +16,7 @@ export function StudentScoreBoardLoadingSkeleton() {
         tabs={{
           studentList: {
             title: "Student List",
-            content: () => (
+            content: (
               <Grid>
                 {Array.from({ length: 7 }).map((_, idx) => (
                   <LoadingSkeleton key={idx} />
@@ -26,7 +26,7 @@ export function StudentScoreBoardLoadingSkeleton() {
           },
           group: {
             title: "Group",
-            content: () => "Loading...",
+            content: "Loading...",
           },
         }}
       />

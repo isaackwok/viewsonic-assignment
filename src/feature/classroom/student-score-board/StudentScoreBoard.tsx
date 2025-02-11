@@ -1,16 +1,23 @@
-import { StudentCard } from "./StudentCard";
 import { MdPerson } from "react-icons/md";
-import { StyledWindow, Header, ClassTitle, Grid, StyledTabs } from "./shared";
+import { StyledWindow, Header, ClassTitle, StyledTabs } from "./shared";
+import { memo, useMemo, useState } from "react";
+import { StudentListTab } from "./StudentListTab";
+import { Student } from "../../../types/student";
+
+const MemoizedStudentListTab = memo(StudentListTab);
+
+const sortByScore = (students: Student[]) => {
+  return students.slice().sort((a, b) => b.score - a.score);
+};
+
+const sortByName = (students: Student[]) => {
+  return students.slice().sort((a, b) => a.name.localeCompare(b.name));
+};
 
 type StudentScoreBoardProps = {
   name: string;
   capacity: number;
-  students: {
-    id: string;
-    name: string;
-    initialScore: number;
-    isActive: boolean;
-  }[];
+  students: Student[];
 };
 
 export function StudentScoreBoard({
@@ -18,6 +25,23 @@ export function StudentScoreBoard({
   capacity,
   students,
 }: StudentScoreBoardProps) {
+  const [sortBy, setSortBy] = useState<"name" | "score">("name");
+
+  const sortedStudents = useMemo(() => {
+    switch (sortBy) {
+      case "score":
+        return sortByScore(students);
+      case "name":
+        return sortByName(students);
+      default:
+        return students;
+    }
+  }, [sortBy, students]);
+
+  const handleSort = (sort: typeof sortBy) => () => {
+    setSortBy(sort);
+  };
+
   return (
     <StyledWindow id="student-score-board">
       <Header>
@@ -28,25 +52,23 @@ export function StudentScoreBoard({
         tabs={{
           studentList: {
             title: "Student List",
-            content: () => (
-              <Grid>
-                {students.map((student, idx) => (
-                  <StudentCard
-                    key={student.id}
-                    name={student.name}
-                    number={idx + 1}
-                    initialScore={student.initialScore}
-                    isActive={student.isActive}
-                  />
-                ))}
-              </Grid>
-            ),
+            content: <MemoizedStudentListTab students={sortedStudents} />,
           },
           group: {
             title: "Group",
-            content: () => <div>Group</div>,
+            content: <div>Group</div>,
           },
         }}
+        actions={[
+          {
+            text: "Sort by score",
+            onClick: handleSort("score"),
+          },
+          {
+            text: "Sort by name",
+            onClick: handleSort("name"),
+          },
+        ]}
       />
     </StyledWindow>
   );

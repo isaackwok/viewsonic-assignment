@@ -1,7 +1,6 @@
 import { StudentScoreBoard } from "./StudentScoreBoard";
-import { getClassroomInfoById } from "../../../services/get-classroom-by-id";
-import { useQuery } from "@tanstack/react-query";
 import { StudentScoreBoardLoadingSkeleton } from "./StudentScoreBoard.loading";
+import { useClassroom } from "../useClassroom";
 
 type StudentScoreBoardContainerProps = {
   classroomId: string;
@@ -10,24 +9,17 @@ type StudentScoreBoardContainerProps = {
 export function StudentScoreBoardContainer({
   classroomId,
 }: StudentScoreBoardContainerProps) {
-  const {
-    data: classroomInfo,
-    isError,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["classroom", classroomId],
-    queryFn: () => getClassroomInfoById(classroomId),
-  });
+  const { classroom, isLoading, isError } = useClassroom(classroomId);
 
-  if (isError) return <div>Error: {error?.message}</div>;
+  if (isError) return <div>Error</div>;
   if (isLoading) return <StudentScoreBoardLoadingSkeleton />;
-  if (!classroomInfo) return null;
+  if (!classroom) return null;
+
   return (
     <StudentScoreBoard
-      name={classroomInfo.name}
-      capacity={classroomInfo.capacity}
-      students={classroomInfo.students}
+      name={classroom.name}
+      capacity={classroom.capacity}
+      students={classroom.students}
     />
   );
 }

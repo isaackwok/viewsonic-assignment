@@ -1,12 +1,11 @@
-import { useState } from "react";
 import styled from "styled-components";
+import { useStudentScore } from "../useStudentScore";
 
 type StudentCardProps = {
+  id: string;
   number: number;
   name: string;
   isActive: boolean;
-  initialScore: number;
-  onScoreChange?: (score: number) => void;
 };
 
 const Header = styled.div`
@@ -74,17 +73,12 @@ const Container = styled.div<{ $isActive: boolean }>(({ $isActive, theme }) => {
 });
 
 type ScoreBoardProps = {
-  initialScore: number;
+  score: number;
   isActive: boolean;
   onScoreChange?: (score: number) => void;
 };
 
-const ScoreBoard = ({
-  initialScore,
-  isActive,
-  onScoreChange,
-}: ScoreBoardProps) => {
-  const [score, setScore] = useState<number>(initialScore);
+const ScoreBoard = ({ score, isActive, onScoreChange }: ScoreBoardProps) => {
   return (
     <Footer>
       <ScoreButton
@@ -92,7 +86,6 @@ const ScoreBoard = ({
         disabled={score === 0 || !isActive}
         onClick={() => {
           const newScore = score - 1;
-          setScore(newScore);
           onScoreChange?.(newScore);
         }}
       >
@@ -104,7 +97,6 @@ const ScoreBoard = ({
         disabled={!isActive}
         onClick={() => {
           const newScore = score + 1;
-          setScore(newScore);
           onScoreChange?.(newScore);
         }}
       >
@@ -118,14 +110,20 @@ export const StudentCard = ({
   number,
   name,
   isActive,
-  initialScore,
+  id,
 }: StudentCardProps) => {
+  const { score, changeScore } = useStudentScore({ id });
   const paddedNumber = number.toString().padStart(2, "0");
+
   return (
     <Container $isActive={isActive}>
       <Header>{paddedNumber}</Header>
       <Body>{name}</Body>
-      <ScoreBoard initialScore={initialScore} isActive={isActive} />
+      <ScoreBoard
+        score={score}
+        isActive={isActive}
+        onScoreChange={changeScore}
+      />
     </Container>
   );
 };
